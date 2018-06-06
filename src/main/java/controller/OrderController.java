@@ -14,21 +14,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.util.*;
 
+import static util.CharsetUtil.convert;
+
+/**Контроллер заказов
+ * @version 1.0
+ * @author Xolyspirit */
 @Controller
 @WebServlet(name = "order")
 public class OrderController {
-
+    /**дао заказов*/
     @Autowired
     private OrdersDao ordersDao;
-
+    /**дао пользователей*/
     @Autowired
     private UsersDao usersDao;
-
+    /**Обработка нового заказа*/
     @PostMapping(value = "/order")
     public ModelAndView order(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView();
@@ -63,6 +67,7 @@ public class OrderController {
         modelAndView.setViewName("paid");
         return modelAndView;
     }
+    /**Обработка оплаты заказа*/
     @PostMapping(value = "/paid")
     public ModelAndView paid(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView();
@@ -78,7 +83,7 @@ public class OrderController {
         modelAndView.setViewName("redirect:getuser");
         return modelAndView;
     }
-
+    /**Обработка показа всех заказов пользователя*/
     @PostMapping(value = "/showmyorders")
     public ModelAndView showMyOrders(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView();
@@ -116,7 +121,7 @@ public class OrderController {
         modelAndView.setViewName("redirect:getuser");
         return  modelAndView;
     }
-
+    /**Обработка показа вообще всех заказов (для админа)*/
     @PostMapping(value = "/showallorders")
     public ModelAndView showAllOrders(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         HttpSession session = req.getSession();
@@ -157,9 +162,4 @@ public class OrderController {
         modelAndView.addObject("logOut",convert(res.getString("logOut")));
         return modelAndView;
     }
-
-    public String convert(String input) throws UnsupportedEncodingException {
-        return new String(input.getBytes("ISO-8859-1"), "windows-1251");
-    }
-
 }

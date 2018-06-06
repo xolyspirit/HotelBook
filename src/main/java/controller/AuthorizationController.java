@@ -17,16 +17,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import static util.CharsetUtil.convert;
+/**Контроллер авторизации пользователей
+ * @version 1.0
+ * @author Xolyspirit */
 @Controller
 @WebServlet(name = "authorization")
 public class AuthorizationController {
-
+    /**дао пользователей*/
     @Autowired
     private UsersDao usersDao;
-
+    /**дао заказов*/
     @Autowired
     private OrdersDao ordersDao;
-
+    /**Выполняет авторизацию пользователей
+     * В зависмости от типа пользователя, отправляет на необходимую страницу*/
     @PostMapping(value = "/authorization")
     public ModelAndView authorization(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         HttpSession session = req.getSession(true);
@@ -67,7 +72,4 @@ public class AuthorizationController {
         return modelAndView;
     }
 
-    public String convert(String input) throws UnsupportedEncodingException {
-        return new String(input.getBytes("ISO-8859-1"), "windows-1251");
-    }
 }

@@ -1,8 +1,6 @@
 package controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +13,14 @@ import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import static util.CharsetUtil.convert;
+
+/**Контроллер главной страницы
+ * @version 1.0
+ * @author Xolyspirit */
 @Controller
 public class IndexController {
-    @Autowired
-    private Environment env;
-
+    /**Обработка стартового запроса*/
     @GetMapping(value = "/")
     public ModelAndView getRequest(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView("index");
@@ -37,11 +38,7 @@ public class IndexController {
         req.setAttribute("indexTitle",convert(res.getString("indexTitle")));
         return modelAndView;
     }
-
-    public String convert(String input) throws UnsupportedEncodingException {
-        return new String(input.getBytes("ISO-8859-1"), "windows-1251");
-    }
-
+    /**Возврат на стартовую страницу*/
     @GetMapping(value = "/getindex")
     public ModelAndView getIndex(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView("index");
@@ -58,6 +55,7 @@ public class IndexController {
         req.setAttribute("indexTitle",convert(res.getString("indexTitle")));
         return modelAndView;
     }
+    /**Возврат на страницу пользователя*/
     @GetMapping(value = "/getuser")
     public ModelAndView getUser(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView("user");

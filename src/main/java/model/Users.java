@@ -3,77 +3,72 @@ package model;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+/**Сущность пользователя
+ * @version 1.0
+ * @author Xolyspirit */
 @Entity
 public class Users {
+    /**id пользователя*/
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    /**имя пользователя*/
     @Basic
     @Column(name = "name")
     private String name;
+    /**логин пользователя*/
     @Basic
     @Column(name = "login")
     private String login;
+    /**пароль пользователя*/
     @Basic
     @Column(name = "password")
     private String password;
+    /**роль пользователя в системе*/
     @Basic
     @Column(name = "role")
     private String role;
-
+    /**список заказов {@link Orders} пользователя*/
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Orders> orders = new HashSet<Orders>();
-
+    /**стандартные геттеры и сеттеры*/
     public Set<Orders> getOrders() {
         return orders;
     }
-
     public void setOrders(Set<Orders> orders) {
         this.orders = orders;
     }
-
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public String getLogin() {
         return login;
     }
-
     public void setLogin(String login) {
         this.login = login;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public String getRole() {
         return role;
     }
-
     public void setRole(String role) {
         this.role = role;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,7 +84,6 @@ public class Users {
 
         return true;
     }
-
     @Override
     public int hashCode() {
         int result = id;

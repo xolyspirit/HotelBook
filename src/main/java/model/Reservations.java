@@ -2,67 +2,33 @@ package model;
 
 import javax.persistence.*;
 import java.sql.Date;
-
+/**Сущность бронирования
+ * @version 1.0
+ * @author Xolyspirit */
 @Entity
 public class Reservations {
+    /**id бронирования*/
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    /**забронированная комната*/
     @Basic
     @Column(name = "room")
     private Integer room;
+    /**дата заезда*/
     @Basic
     @Column(name = "start_time")
     private Date startTime;
+    /**количество дней проживания*/
     @Basic
     @Column(name = "days")
     private Integer days;
-
+    /**какому заказу {@link Orders}принадлежит */
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Orders order;
-
-    public Orders getOrder() {
-        return order;
-    }
-
-    public void setOrder(Orders order) {
-        this.order = order;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Integer getRoom() {
-        return room;
-    }
-
-    public void setRoom(Integer room) {
-        this.room = room;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Integer getDays() {
-        return days;
-    }
-
-    public void setDays(Integer days) {
-        this.days = days;
-    }
-
+    /**переопределенный toString для корректного отображения*/
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -75,7 +41,37 @@ public class Reservations {
         sb.append("</th></tr>");
         return sb.toString();
     }
-
+    /**стандартные геттеры и сеттеры*/
+    public Orders getOrder() {
+        return order;
+    }
+    public void setOrder(Orders order) {
+        this.order = order;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public Integer getRoom() {
+        return room;
+    }
+    public void setRoom(Integer room) {
+        this.room = room;
+    }
+    public Date getStartTime() {
+        return startTime;
+    }
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+    public Integer getDays() {
+        return days;
+    }
+    public void setDays(Integer days) {
+        this.days = days;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,7 +86,6 @@ public class Reservations {
 
         return true;
     }
-
     @Override
     public int hashCode() {
         int result = id;

@@ -1,7 +1,5 @@
 package controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,12 +11,12 @@ import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**Контроллер локализации
+ * @version 1.0
+ * @author Xolyspirit */
 @Controller
 public class LocalizationController {
-
-    @Autowired
-    private Environment env;
-
+    /**Установка выбранной локализации*/
     @PostMapping(value = "/locale")
     public ModelAndView getRequest(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView("redirect:getindex");
@@ -28,9 +26,5 @@ public class LocalizationController {
         Locale locale = new Locale.Builder().setLanguage(loc).setRegion(loc.toUpperCase()).build();
         ResourceBundle res = ResourceBundle.getBundle("locale",locale);
         return modelAndView;
-    }
-
-    public String convert(String input) throws UnsupportedEncodingException {
-        return new String(input.getBytes("ISO-8859-1"),"windows-1251" );
     }
 }
