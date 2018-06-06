@@ -64,7 +64,7 @@ public class AuthorizationController {
             }
             else {
                 modelAndView.addObject("answer", convert(res.getString("answer4")));
-                modelAndView.setViewName("redirect:index");
+                modelAndView.setViewName("redirect:getindex");
             }
         }
         modelAndView.addObject("logOut",convert(res.getString("logOut")));
